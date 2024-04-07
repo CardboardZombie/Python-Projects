@@ -94,6 +94,17 @@ def format_elapsed_time(elapsed_time):
     print(f"{count} images downloaded successfully.")
 
 
+def is_valid_url(url):
+    try:
+        response = requests.head(url)
+        if 200 <= response.status_code < 300:
+            return True
+        else:
+            return False
+    except requests.RequestException:
+        return False
+
+
 def download_images(image_urls_dict, output_directory):
     """
     Download images from a dictionary of image URLs.

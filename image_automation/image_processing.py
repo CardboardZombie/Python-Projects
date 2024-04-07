@@ -173,13 +173,3 @@ def process_images(product_codes, utilities_dict):
             counter += 1
 
     print(f"{counter} images processed.")
-
-
-# Example usage:
-# product_code_list = ['US_logo', 'UK_logo', 'CA_logo']
-# exception_dict = {'CA_logo': 'exception_image'}
-# height_adj = 100
-# width_adj = 100
-# output_dir = "output_images"
-
-# process_images(product_code_list, exception_dict, height_adj, width_adj, output_dir)

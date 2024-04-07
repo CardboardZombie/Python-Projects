@@ -1,6 +1,7 @@
 from digimon_api import get_digimon_data
 from utils import (
-    download_images, get_time_taken, configure_data, get_start_time, extract_product_codes, generate_number_list
+    download_images, get_time_taken, configure_data, get_start_time, extract_product_codes, generate_number_list,
+    is_valid_url
 )
 from image_processing import process_images
 
@@ -16,15 +17,18 @@ def get_images_from_web(config):
     for identifier in product_identifiers:
         target_data = get_digimon_data(identifier)
         if target_data:
-            # print(f"Image URL for {target_data['name']}: {target_data['images'][0]['href']}")
-            # target_url = target_data['images'][0]['href'].replace('(', '%28').replace(')', '%29')
-            url_data[identifier] = [target_data['name'], target_data['images'][0]['href']]
+            image_url = target_data['images'][0]['href']
+            if is_valid_url(image_url):
+                url_data[identifier] = [target_data['name'], image_url]
+            else:
+                print(f"Invalid URL for {target_data['name']}: {image_url}")
 
-    # Output directory where the downloaded images will be saved
-    output_directory = config['utilities']['downloads_folder']
+    if url_data:
+        # Output directory where the downloaded images will be saved
+        output_directory = config['utilities']['downloads_folder']
 
-    # Download the images
-    download_images(url_data, output_directory)
+        # Download the images only if there are valid URLs
+        download_images(url_data, output_directory)
 
 
 def create_all_images(config):
