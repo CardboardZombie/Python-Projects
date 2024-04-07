@@ -20,7 +20,9 @@ def configure_data():
         'utilities': {
             'height_padding': config.getint('utilities', 'height_padding'),
             'width_padding': config.getint('utilities', 'width_padding'),
-            'resize_images_to': config.get('utilities', 'resize_images_to'),
+            'max_height': config.getint('utilities', 'max_height'),
+            'max_width': config.getint('utilities', 'max_width'),
+            'downloads_folder': config.get('utilities', 'downloads_folder'),
             'output_folder': config.get('utilities', 'output_folder')
         },
         'exceptions': {
@@ -125,3 +127,37 @@ def download_images(image_urls_dict, output_directory):
             print(f"Error downloading image for {identifier}: {e}")
 
     print(f"{count} images downloaded successfully.")
+
+
+def extract_product_codes(folder_path):
+    """
+        Extract product codes from image file names in the specified folder.
+
+        Args:
+            folder_path (str): Path to the folder containing image files.
+
+        Returns:
+            list: List of product codes extracted from file names.
+        """
+    product_codes = []
+
+    # Iterate through each file in the folder
+    for filename in os.listdir(folder_path):
+        # Check if the file is an image (you can customize this check if needed)
+        if filename.endswith(('.png', '.jpg', '.jpeg', '.gif')):
+            # Extract the product code from the file name (without extension)
+            product_code = os.path.splitext(filename)[0]
+            # Append the product code to the list
+            product_codes.append(product_code)
+
+    return product_codes
+
+
+def generate_number_list(max_id):
+    """
+    Generate a list of numbers from 1 to 1471 excluding 326.
+
+    Returns:
+        list: List of numbers.
+    """
+    return [num for num in range(1, max_id+1) if num != 326]
