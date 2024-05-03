@@ -2,6 +2,15 @@ import requests
 import os
 import time
 import configparser
+import random
+
+
+def select_product_code(product_codes):
+    # Randomly select a product code from the list
+    selected_product_code = random.choice(product_codes)
+    return selected_product_code
+    # Print a message
+    print(f"The selected product code is: {selected_product_code}")
 
 
 def configure_data():

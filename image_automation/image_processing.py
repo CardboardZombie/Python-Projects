@@ -1,6 +1,7 @@
 from pathlib import Path
 from PIL import Image
 import shutil
+from utils import select_product_code
 
 
 def create_output_directory(output_path):
@@ -173,3 +174,5 @@ def process_images(product_codes, utilities_dict):
             counter += 1
 
     print(f"{counter} images processed.")
+    your_partner = select_product_code(product_codes)
+    print(f'Congratulations, your digimon partner has been identified: {your_partner}...')
