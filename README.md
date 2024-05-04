@@ -39,6 +39,23 @@ python create_images_from_repo.py
 
 This will execute the script and download images from the Digimon API, process them, and save the processed images to an output directory.
 
+## Flow Chart
+
+``` mermaid
+graph TD;
+    A((Start)) --> B[Configure Data]
+    B --> C[Actions Dictionary]
+    C --> D{Create All Images?}
+    D -->|Yes| E[Get Product List from Web]
+    D -->|No| F[Get Product List from Config]
+    E --> G{Valid Product URLs?}
+    F --> G
+    G --> |Yes| H[Download Images]
+    G --> |No| I[Download Images]
+    H --> I[Process Images]
+    I --> J((End))
+```
+
 ## Configuration
 The Digimon Image Downloader uses a configuration file (config.ini) to specify various settings, such as actions to perform, utility parameters, and Digimon IDs. You can modify this configuration file to customize the behavior of the script.
 
